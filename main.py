@@ -4,10 +4,10 @@ password = "1234"
 
 def login(usuario, contrasena):
     if usuario == user1 and password == contrasena or usuario == user2 and password == contrasena:
-        print("Login exitoso")
+        print("Login exitoso.\n")
         return True
     else:
-        print("Credenciales incorrectas")
+        print("Usuario o contraseña incorrectos. Intente de nuevo.\n")
         return False
 
 def menu_bancos():
@@ -157,7 +157,9 @@ def menu_notas():
     else:
         print("Opción no válida")
 
-def menu_opciones():
+
+
+'''def menu_opciones():
     print("Bienvenido al sistema de gestión de contraseñas")
     print("Seleccione una opción:")
     print("1. Bancos")
@@ -186,14 +188,42 @@ def menu_opciones():
         return False
 
     else:
-        print("Opción no válida")
+        print("Opción no válida")'''
 
-usuario = input("Ingrese su usuario: ")
-contrasena = input("Ingrese su contraseña: ")
+# Inicializamos la variable en False para que el bucle pueda empezar
+login_exitoso = False
 
-login_exitoso = login(usuario, contrasena)
+# "Mientras login_exitoso sea False, repite esto..."
+while not login_exitoso:
+    usuario = input("Ingrese su usuario: ")
+    contrasena = input("Ingrese su contraseña: ")
+    
+    login_exitoso = login(usuario, contrasena)
+    
+    if not login_exitoso:
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-if login_exitoso:
-    while True:
-        if menu_opciones() == False:
-            break
+# Tu diccionario de menús principales
+menues_principales = {
+    "1": menu_bancos,
+    "2": menu_brokers,
+    "3": menu_criptos,
+    "4": menu_redes_sociales,
+    "5": menu_correos,
+    "6": menu_notas
+}
+
+while True:
+    print("\n--- MENÚ PRINCIPAL ---")
+    print("1. Bancos\n2. Brokers\n3. Criptos\n4. Redes\n5. Correos\n6. Notas\n7. Salir")
+    
+    seleccion = input("Seleccione a dónde quiere ir: ")
+    
+    if seleccion == "7":
+        print("Saliendo del programa...")
+        break
+    elif seleccion in menues_principales:
+        # Buscamos la función correspondiente y la ejecutamos con ()
+        menues_principales[seleccion]()
+    else:
+        print("Opción inválida, intente de nuevo.")
